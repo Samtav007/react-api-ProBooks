@@ -6,14 +6,18 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://reactnd-books-api.udacity.com/books", {
-        headers: { Authorization: "whatever-you-want" },
-      })
-      .then((res) => {
-        setBooks(res.data.books);
-      })
-      .catch((err) => console.log(err));
+    axios.get("https://reactnd-books-api.udacity.com/books", {
+      headers: { 'Authorization': 'want' }
+    })
+    .then((res) => {
+      setBooks(res.data.books);
+    })
+    .catch((err) => {
+      console.error("Error fetching data:", err);
+      if (err.response && err.response.status === 404) {
+        console.log("Data not found (status code 404)");
+      }
+    });
   }, []);
 
   return (
